@@ -102,9 +102,9 @@ for ($i=1;$i<=$forks;$i++) {
                 $imap_alerts = imap_alerts();
                 $imap_errors = imap_errors();
                 if (in_array('authorization failed',$imap_errors)===true) {
-                    $res_authfail++;
+                    //$res_authfail++;
                 } else {
-                    $res_otherfail++;
+                    //$res_otherfail++;
                 }
                 if ($cmd_res->options['verbose']===true) {
                     echo "ERROR: server: {$srv[$r]} user: {$z[0]} pass: {$z[1]}\n";
@@ -113,6 +113,7 @@ for ($i=1;$i<=$forks;$i++) {
                 } 
             } else {
                 $check = imap_mailboxmsginfo($mbox);
+                //$res_success++;
                 //print_r(imap_errors());
                 imap_close($mbox);
             }
@@ -139,6 +140,10 @@ foreach ($lines as $v) {
 for ($i=1;$i<=$forks;$i++) {
     pcntl_waitpid($pids[$i], $status, WUNTRACED);
 }
+
+//echo "Successful: {$res_success}\n";
+//echo "Auth Fail: {$res_authfail}\n";
+//echo "Other Fail: {$res_otherfail}\n";
 
 function parse_server_option($srv_str)
 {
