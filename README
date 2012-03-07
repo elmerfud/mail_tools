@@ -2,3 +2,5 @@ Some tools I wrote to handle pop3/imap mail box stuff I needed to do.
 
 Yes, it's PHP... so what.
 
+pop_to_imap.php - This script connects to a pop3 mailbox as a source and copies all the mail present to an imap mailbox in to the INBOX folder.  It attempts to preserve flags on the messages. Configuration is maintained in mail_copy.inc.php file.  You'll need to copy mail_copy.inc.php_dist to mail_copy.inc.php and adjust the options for your system.  The script requires pear's MDB2 module, mysqli and a mysql database.  This is to preserve a copy history so the script can be run multiple times and not attempt to sync mail that's already be copied but may no longer be present on the destination server.  
+
