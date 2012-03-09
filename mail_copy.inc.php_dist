@@ -1,0 +1,27 @@
+<?php
+
+date_default_timezone_set('America/Chicago');
+
+// Must be an array, name or ip's of source servers
+$config['src_servers'] = array('pop.myserver.com');
+// Must be an array, name or ip's of destination servers
+$config['dst_servers'] = array('imap1.yourserver.com','imap2.yourserver.com');
+
+// This clears the destination box of ALL mail before attempting the copy
+$config['clear_destination'] = false;
+// This copies the mail without reguard for what's been copied in the past
+$config['do_copy_anyway'] = false;
+// Attempt to keep overall status in sync.  Read the README before you use this
+$config['attempt_sync'] = false;
+
+//Ensure These Flags Are Syncd
+$config['flags'] = array('flagged','answered','deleted','seen','draft');
+
+//DB creds so we can save a history of copied messages
+$config['db_dsn'] = array('phptype' => 'mysqli',
+                         'username' => 'mailbox_copy_pass',
+                         'password' => 'mailbox_copy_pass',
+                         'hostspec' => 'db.myserver.com',
+                         'database' => 'mailbox_copy_db');
+
+?>

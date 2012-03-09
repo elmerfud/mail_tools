@@ -4,3 +4,15 @@ Yes, it's PHP... so what.
 
 pop_to_imap.php - This script connects to a pop3 mailbox as a source and copies all the mail present to an imap mailbox in to the INBOX folder.  It attempts to preserve flags on the messages. Configuration is maintained in mail_copy.inc.php file.  You'll need to copy mail_copy.inc.php_dist to mail_copy.inc.php and adjust the options for your system.  The script requires pear's MDB2 module, mysqli and a mysql database.  This is to preserve a copy history so the script can be run multiple times and not attempt to sync mail that's already be copied but may no longer be present on the destination server.  
 
+Config options of note -
+
+$config['clear_destination'] = false;
+This deletes all messages in the destination INBOX and pruges it before any mail is copied over.  
+
+$config['do_copy_anyway'] = false;
+This copies all messages without consulting the SQL table to see if the message has been copied in the past.  This WILL do an INSERT on dupe UPDATE of the SQL table for the messages.  
+
+$config['attempt_sync'] = false;
+When this option is set to true it builds a list of messages from the source plus the messages that have been copied according to the SQL table.  It will then compare that to what messages are on the destination side and remove messages from the destination that are in the SQL table as having been copied but are no longer present on the source side. Why would you use this?  If you have a large number of accounts with a large amount of mail, it's fairly quick to get a list of message id's but much slower to download and upload each message.  So, this will allow you to copy the mail over before the system cut over date.  Once the system is cut over the script can be run again and it should run much quicker because it's only copying the missing mail and removing mail that's been removed. 
+
+ 
