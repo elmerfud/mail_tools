@@ -170,7 +170,7 @@ for ($i=1;$i<=$forks;$i++) {
                                 die("Error inserting in to SQL\n");
                             }
                         } else { 
-                            echo "fail {$flag_append}\n";
+                            echo "fail {$flag_append} {$user_creds[0]} " . imap_last_error() . "\n";
                         }
                     }
                 }
@@ -214,7 +214,7 @@ $cnt = 0;
 foreach ($lines as $v) {
     // send data to workers
     msg_send($msg_id,1,$v);
-    if ($cnt % 10 === 0) {
+    if ($cnt % 1000 === 0) {
         echo $cnt . "\n";
     }
     $cnt++;
